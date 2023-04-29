@@ -6,14 +6,15 @@ import lombok.experimental.FieldDefaults;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level= AccessLevel.PRIVATE)
-public class SellerRequestDto {
-
-    String name;
-
-    String emailId;
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+public class UpdateCustomerRequest
+{
+    String email;
 
     Integer age;
 
     String mobNo;
+
+    String address;
 }

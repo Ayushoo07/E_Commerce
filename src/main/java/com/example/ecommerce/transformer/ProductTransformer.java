@@ -1,19 +1,19 @@
 package com.example.ecommerce.transformer;
 
 import com.example.ecommerce.Enum.ProductStatus;
-import com.example.ecommerce.dto.RequestDto.ProductRequestDto;
+import com.example.ecommerce.dto.RequestDto.AddProductRequestDto;
 import com.example.ecommerce.dto.ResponseDto.ProductResponseDto;
 import com.example.ecommerce.model.Product;
 
 public class ProductTransformer {
 
-    public static Product ProductRequestDtoToProduct(ProductRequestDto productRequestDto){
+    public static Product ProductRequestDtoToProduct(AddProductRequestDto addProductRequestDto){
 
         return Product.builder()
-                .name(productRequestDto.getProductName())
-                .price(productRequestDto.getPrice())
-                .productCategory(productRequestDto.getProductCategory())
-                .quantity(productRequestDto.getQuantity())
+                .name(addProductRequestDto.getProductName())
+                .price(addProductRequestDto.getPrice())
+                .productCategory(addProductRequestDto.getProductCategory())
+                .quantity(addProductRequestDto.getQuantity())
                 .productStatus(ProductStatus.AVAILABLE)
                 .build();
     }

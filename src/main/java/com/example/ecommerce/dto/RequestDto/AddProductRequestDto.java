@@ -1,8 +1,6 @@
 package com.example.ecommerce.dto.RequestDto;
 
 import com.example.ecommerce.Enum.ProductCategory;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level= AccessLevel.PRIVATE)
 @Builder
-public class ProductRequestDto {
+public class AddProductRequestDto {
 
     int sellerId;
 

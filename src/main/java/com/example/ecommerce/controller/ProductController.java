@@ -1,12 +1,12 @@
 package com.example.ecommerce.controller;
 
 import com.example.ecommerce.Enum.ProductCategory;
-import com.example.ecommerce.dto.RequestDto.ProductRequestDto;
-import com.example.ecommerce.dto.ResponseDto.ProductResponseDto;
+import com.example.ecommerce.dto.RequestDto.AddProductRequestDto;
+import com.example.ecommerce.dto.RequestDto.GetSellerEmailRequest;import com.example.ecommerce.dto.RequestDto.GetSellerProductIdRequest;import com.example.ecommerce.dto.ResponseDto.ProductResponseDto;
 import com.example.ecommerce.exception.InvalidSellerException;
-import com.example.ecommerce.service.ProductService;
+import com.example.ecommerce.service.Impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;import org.springframework.http.ResponseEntity;import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,23 +15,38 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    ProductServiceImpl productServiceImpl;
 
     @PostMapping("/add")
-    public ProductResponseDto addProduct(@RequestBody ProductRequestDto productRequestDto) throws InvalidSellerException {
+    public ProductResponseDto addProduct(@RequestBody AddProductRequestDto addProductRequestDto) throws InvalidSellerException {
 
-        return productService.addProduct(productRequestDto);
+        return productServiceImpl.addProduct(addProductRequestDto);
     }
 
     // get all products of a particular category
     @GetMapping("/get/{category}")
     public List<ProductResponseDto> getAllProductsByCategory(@PathVariable("category") ProductCategory category){
-        return productService.getAllProductsByCategory(category);
+        return productServiceImpl.getAllProductsByCategory(category);
     }
 
     // Get all product by seller email id
 
+    @GetMapping("/getProductsBySellerEmail")
+    public ResponseEntity getProductsBySellerEmail(@RequestBody GetSellerEmailRequest getSellerEmailRequest)throws InvalidSellerException
+    {
+        List<ProductResponseDto> products=productServiceImpl.getProductsBySellerEmail(getSellerEmailRequest);
+
+        return new ResponseEntity(products,HttpStatus.FOUND);
+    }
+
     // delete a product by seller id and product id
+    @DeleteMapping("/deleteProductBySellerProductId")
+    public ResponseEntity deleteProductBySellerProductId(@RequestBody GetSellerProductIdRequest getSellerProductIdRequest)
+    {
+        productServiceImpl.deleteProductBySellerProductId(getSellerProductIdRequest);
+        return new ResponseEntity("product deleted Succesfully",HttpStatus.OK);
+    }
+
 
     // return top 5 cheapest products
 

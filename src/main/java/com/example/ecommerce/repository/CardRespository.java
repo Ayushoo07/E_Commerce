@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RestController;
 
 @Repository
-public interface CardRespository extends JpaRepository<Card,Integer> {
+public interface CardRespository extends JpaRepository<Card,Integer>
+{
+    public Card findByCardNo(String cardNo);
 }
