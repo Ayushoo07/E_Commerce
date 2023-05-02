@@ -1,5 +1,6 @@
 package com.example.ecommerce.service.Impl;
 
+import com.example.ecommerce.Enum.CardType;
 import com.example.ecommerce.dto.RequestDto.CustomerRequestDto;
 import com.example.ecommerce.dto.RequestDto.UpdateCustomerRequest;import com.example.ecommerce.dto.ResponseDto.CustomerResponseDto;
 import com.example.ecommerce.exception.InvalidCustomerException;import com.example.ecommerce.exception.MobileNoAlreadyPresentException;
@@ -102,4 +103,20 @@ public class CustomerServiceImpl implements CustomerService {
     return CustomerTransformer.CustomerToCustomerResponseDto(customer);
 
     }
+
+  @Override
+  public List<CustomerResponseDto> getByCard(CardType cardType){
+    List<CustomerResponseDto> customerResponseDtoList=new ArrayList<>();
+    List<Card> cards=cardRespository.findAll();
+    for(Card card:cards)
+    {
+        if(card.getCardType().equals(cardType))
+        {
+            CustomerResponseDto obj=CustomerTransformer.CustomerToCustomerResponseDto(card.getCustomer());
+            customerResponseDtoList.add(obj);
+        }
+    }
+
+    return customerResponseDtoList;
+  }
 }

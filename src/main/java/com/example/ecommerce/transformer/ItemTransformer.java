@@ -14,8 +14,10 @@ public class ItemTransformer {
     public static ItemResponseDto ItemToItemResponseDto(Item item)
     {
         return ItemResponseDto.builder().priceOfOneItem(item.getProduct().getPrice())
+                .priceOfOneItem(item.getProduct().getPrice())
                 .productName(item.getProduct().getName())
                 .quantity(item.getRequiredQuantity())
-                .totalPrice(item.getRequiredQuantity()*item.getProduct().getPrice()).build();
+                .totalPrice(item.getRequiredQuantity()*item.getProduct().getPrice())
+                .build();
     }
 }

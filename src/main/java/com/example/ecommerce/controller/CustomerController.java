@@ -1,6 +1,6 @@
 package com.example.ecommerce.controller;
 
-import com.example.ecommerce.dto.RequestDto.CustomerRequestDto;
+import com.example.ecommerce.Enum.CardType;import com.example.ecommerce.dto.RequestDto.CustomerRequestDto;
 import com.example.ecommerce.dto.RequestDto.UpdateCustomerRequest;import com.example.ecommerce.dto.ResponseDto.CustomerResponseDto;
 import com.example.ecommerce.exception.InvalidCustomerException;import com.example.ecommerce.exception.MobileNoAlreadyPresentException;
 import com.example.ecommerce.service.Impl.CustomerServiceImpl;import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +54,11 @@ public class CustomerController {
     return new ResponseEntity(customerServiceImpl.updateByEmail(updateCustomerRequest),HttpStatus.OK);
   }
 
-
-  // get all customers who use VISA card
+  @GetMapping("getByCard/{card}")
+  public ResponseEntity getByCard(@PathVariable("card") CardType card)
+  {
+    return new ResponseEntity(customerServiceImpl.getByCard(card),HttpStatus.FOUND);
+  }
 
   // update a customer info by email
 

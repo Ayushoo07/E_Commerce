@@ -44,11 +44,9 @@ public class CartServiceImpl implements CartService {
 
         int newTotal = cart.getCartTotal() + item.getRequiredQuantity()*item.getProduct().getPrice();
         cart.setCartTotal(newTotal);
-        System.out.println(cart.getItems().size());
         cart.getItems().add(item);
-        System.out.println(cart.getItems().size());
-
         cart.setNumberOfItems(cart.getItems().size());
+        item.setCart(cart);
         Cart savedCart = cartRepository.save(cart);
 
         CartResponseDto cartResponseDto = CartResponseDto.builder()
@@ -91,8 +89,9 @@ public class CartServiceImpl implements CartService {
         try{
             Ordered order = orderServiceImpl.placeOrder(customer,card);  // throw exception if product goes out of stock
             customer.getOrderList().add(order);
-            Ordered savedOrder = orderedRepository.save(order);
             resetCart(cart);
+            Ordered savedOrder = orderedRepository.save(order);
+
 //           customerRepository.save(customer);
 
             //prepare response dto
@@ -121,7 +120,10 @@ public class CartServiceImpl implements CartService {
     public void resetCart(Cart cart){
 
         cart.setCartTotal(0);
+        for(Item item: cart.getItems()){
+            item.setCart(null);
+        }
         cart.setNumberOfItems(0);
-        cart.setItems(new ArrayList<>());
+        cart.getItems().clear();
     }
 }

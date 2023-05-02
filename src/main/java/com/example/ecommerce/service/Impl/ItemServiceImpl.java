@@ -50,8 +50,8 @@ public class ItemServiceImpl implements ItemService {
         }
 
         Item item = ItemTransformer.ItemRequestDtoToItem(itemRequestDto);
-        System.out.println(customer.getCart().getItems().size());
-        item.setCart(customer.getCart());
+        //System.out.println(customer.getCart().getItems().size());
+        //item.setCart(customer.getCart());
         item.setProduct(product);
 
         product.getItemList().add(item);
